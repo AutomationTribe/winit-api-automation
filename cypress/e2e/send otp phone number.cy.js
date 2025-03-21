@@ -1,6 +1,6 @@
 describe("Send otp to phone test suite",()=>{
 
-    let options,data;
+    let options,data,otp;
     let url = Cypress.config('baseUrl');
 
 
@@ -28,7 +28,10 @@ describe("Send otp to phone test suite",()=>{
 
             expect(res.status).to.eq(200);
             expect(res.body.message).to.eq("OTP Sent To Phone Successfully.");
-            expect(res.body).to.have.property("data").and.not.null 
+            expect(res.body).to.have.property("data").and.not.null;
+            otp = res.body.data;
+            cy.writeFile("cypress/fixtures/otp.json",{otp});
+
 
         });
     })
