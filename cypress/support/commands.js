@@ -23,3 +23,28 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+let options,otp;
+let url = Cypress.config("baseUrl");
+
+Cypress.Commands.add("sendPhoneOTP",(phoneNumber)=>{
+
+    options = {
+        method : "post",
+        url : url + `/api/v1/auth/send-otp-phone`,
+        headers : {
+            'Content-type' : 'application/json',
+            'Accept' : 'application/json'
+        },
+        body : {
+            "phone_number" : phoneNumber
+        }
+    };
+
+    cy.request(options).then((res)=>{
+        
+        expect(res.status).to.eq(200);
+       return cy.wrap(res.body.data);
+
+    })
+})
