@@ -48,3 +48,26 @@ Cypress.Commands.add("sendPhoneOTP",(phoneNumber)=>{
 
     })
 })
+
+Cypress.Commands.add("sendEmailOTP",(email,statusCode)=>{
+
+    options = {
+        method : "post",
+        url : url + `/api/v1/auth/send-otp-email`,
+        headers : {
+            'Content-type' : 'application/json',
+            'Accept' : 'application/json'
+        },
+        body : {
+            "email": email
+        },
+        failOnStatusCode: statusCode
+    };
+
+    cy.request(options).then((res)=>{
+        
+        expect(res.status).to.eq(200);
+       return cy.wrap(res.body.data);
+
+    })
+})
