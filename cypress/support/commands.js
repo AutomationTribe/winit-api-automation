@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-let options,otp;
+let options,otp,data;
 let url = Cypress.config("baseUrl");
 
 Cypress.Commands.add("sendPhoneOTP",(phoneNumber)=>{
@@ -69,5 +69,27 @@ Cypress.Commands.add("sendEmailOTP",(email,statusCode)=>{
        // expect(res.status).to.eq(200);
        return cy.wrap(res);
 
+    })
+})
+
+Cypress.Commands.add("login",function(username,password){
+    
+    options = {
+        url : url+`/api/v1/auth/login`,
+        method: "POST",
+        headers:{
+            "Content-type" : "application/json",
+            "Accept" : "application/json"
+        },
+        body:{
+            "username" : username,
+            "password" : password,
+            "remember_me" : true
+        },
+        failOnStatusCode:false
+    };
+
+    cy.request(options).then((res)=>{
+        return cy.wrap(res);
     })
 })
