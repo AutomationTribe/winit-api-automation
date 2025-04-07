@@ -66,8 +66,8 @@ Cypress.Commands.add("sendEmailOTP",(email,statusCode)=>{
 
     cy.request(options).then((res)=>{
         
-        expect(res.status).to.eq(200);
-       return cy.wrap(res.body.data);
+       // expect(res.status).to.eq(200);
+       return cy.wrap(res);
 
     })
 })

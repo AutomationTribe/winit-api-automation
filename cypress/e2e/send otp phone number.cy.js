@@ -50,6 +50,7 @@ describe("Send otp to phone test suite",()=>{
             body : {
                 "phone_number" : null,
             },
+            failOnStatusCode:false
 
         }
 
@@ -73,6 +74,7 @@ describe("Send otp to phone test suite",()=>{
             body : {
                 "phone_number" : "0706818192828282"
             },
+            failOnStatusCode:false
     
         }
 
