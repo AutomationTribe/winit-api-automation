@@ -169,3 +169,26 @@ Cypress.Commands.add("InitiateForgotPassword",(username)=>{
         return cy.wrap(res);
     })
 })
+
+Cypress.Commands.add("confirmPasswordOTP",function(userId,otp){
+
+    options = { 
+        url : url+`/api/v1/auth/forgot-password/confirm-code/${userId}`,
+        method : "POST",
+        headers : {
+            "Content-type" : "application/json",
+            "Accept" : "application/json"
+        },
+        body : { 
+            "code" : otp
+        },
+        failOnStatusCode : false
+    };
+
+    cy.request(options).then((res)=>{
+
+        return cy.wrap(res);
+    })
+   
+    
+})
