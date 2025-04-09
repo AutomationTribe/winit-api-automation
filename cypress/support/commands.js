@@ -92,4 +92,59 @@ Cypress.Commands.add("login",function(username,password){
     cy.request(options).then((res)=>{
         return cy.wrap(res);
     })
+
+   
+})
+
+Cypress.Commands.add("verifyPhoneOTP",function(phoneNumber){
+
+    cy.sendPhoneOTP(phoneNumber).then((res)=>{
+
+        otp = res;
+
+        options = {
+            url : url+`/api/v1/auth/confirm-otp-phone`,
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accept" : "application/json"
+            },
+            body : {
+                "phone_number" : phoneNumber,
+                "otp" : otp
+            }
+        };
+
+        cy.request(options).then((response)=>{
+            
+            return cy.wrap(response);
+        })
+    })
+})
+
+
+Cypress.Commands.add("verifyEmailOTP",function(email){
+
+    cy.sendEmailOTP(email).then((res)=>{
+
+        otp = res.body.data;
+
+        options = {
+            url : url+`/api/v1/auth/confirm-otp-email`,
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accept" : "application/json"
+            },
+            body : {
+                "email" : email,
+                "otp" : otp
+            }
+        };
+
+        cy.request(options).then((response)=>{
+            
+            return cy.wrap(response);
+        })
+    })
 })
