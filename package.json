@@ -3,13 +3,21 @@
   "version": "1.0.0",
   "main": "cypress.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean:reports": "rimraf cypress/reports/*.json",
+    "test": "npx cypress run",
+    "merge": "npx mochawesome-merge 'cypress/results/*.json' > mochawesome.json",
+    "generate": "npx marge mochawesome.json",
+    "report": "npx mochawesome-merge cypress/results/*.json > mochawesome.json && npx marge mochawesome.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@faker-js/faker": "^9.6.0"
+    "@faker-js/faker": "^9.6.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.2.0"
   }
 }

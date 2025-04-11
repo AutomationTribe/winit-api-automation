@@ -21,13 +21,14 @@ describe("Send otp to phone test suite",()=>{
             },
             body : {
                 "phone_number" : data.phoneNumber
-            }
+            },
+            failOnStatusCode:false
         }
 
         cy.request(options).then((res)=>{
 
             expect(res.status).to.eq(200);
-            expect(res.body.message).to.eq("OTP Sent To Phone Successfully.");
+            expect(res.body.message).to.eq("OTP Sent To Your Phone Successfully. Note: If Your Number Is On DND, You May Not Receive The OTP.");
             expect(res.body).to.have.property("data").and.not.null;
             otp = res.body.data;
             cy.writeFile("cypress/fixtures/otp.json",{otp});
@@ -65,7 +66,6 @@ describe("Send otp to phone test suite",()=>{
 
         options = {
             method: "post",
-            failOnStatusCode:false,
             url: url + `/api/v1/auth/send-otp-phone`,
             headers: {
                 "Content-Type": "application/json",
