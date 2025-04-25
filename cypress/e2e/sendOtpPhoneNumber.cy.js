@@ -5,9 +5,11 @@ describe("Send otp to phone test suite",()=>{
 
 
     before("Load user data",function(){
-        cy.fixture('user').then((res)=>{
-            data = res;
-        })
+       cy.generatePhoneNumber().then((res)=>{
+
+        data = res;
+        cy.log(data);
+       })
     })
 
       it("should  send an OTP for a valid phone number",()=>{
@@ -20,7 +22,7 @@ describe("Send otp to phone test suite",()=>{
                 "Accept": "application/json"
             },
             body : {
-                "phone_number" : data.phoneNumber
+                "phone_number" : data
             },
             failOnStatusCode:false
         }

@@ -14,11 +14,11 @@ let data;
         
     })
 
-    it("should send OTP to a valid email address",function(){
+    it("should not send OTP to an invalid email address",function(){
       
         cy.sendEmailOTP("austin",false).then((res)=>{
             expect(res.status).to.eq(422);
-            expect(res.body.message).to.eq("The email field must be a valid email address.");
+            expect(res.body.message).to.eq("Please enter a valid email address.");
         })
         
         

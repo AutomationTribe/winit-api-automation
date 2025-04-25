@@ -24,8 +24,19 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { faker } from "@faker-js/faker";
+
 let options,otp,data;
 let url = Cypress.config("baseUrl");
+
+Cypress.Commands.add("generatePhoneNumber",function(){
+
+    const prefixes = ['080', '081', '070', '090', '091'];
+        const prefix = faker.helpers.arrayElement(prefixes);
+        const number = faker.string.numeric(8); // Generate remaining 8 digits
+        const phoneNumber = `${prefix}${number}`;
+        cy.wrap(phoneNumber);
+})
 
 Cypress.Commands.add("sendPhoneOTP",(phoneNumber)=>{
 

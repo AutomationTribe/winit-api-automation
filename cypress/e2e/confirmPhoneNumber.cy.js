@@ -1,12 +1,19 @@
 
+import { faker } from "@faker-js/faker";
+
 describe("Confirm Phone number test suite ",function(){
 
-    let options,data,otp;
+    let options,data,otp,phoneNumber;
     let url = Cypress.config("baseUrl");
 
     before("Load test data here",()=>{
 
-        cy.sendPhoneOTP("07068181972").then((res)=>{
+        const prefixes = ['080', '081', '070', '090', '091'];
+        const prefix = faker.helpers.arrayElement(prefixes);
+        const number = faker.string.numeric(8); // Generate remaining 8 digits
+        phoneNumber = `${prefix}${number}`;
+
+        cy.sendPhoneOTP(phoneNumber).then((res)=>{
             otp = res;
         }) 
 
@@ -26,7 +33,7 @@ describe("Confirm Phone number test suite ",function(){
                 "Accept": "application/json"
             },
             body: {
-                "phone_number": data,
+                "phone_number": phoneNumber,
                 "otp": otp
             }
         };
