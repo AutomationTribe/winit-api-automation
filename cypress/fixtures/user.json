@@ -1,5 +1,10 @@
 {
     "phoneNumber" : "07068181972",
     "email" : "austin20@yopmail.com",
-    "password" : "Password@124"
+    "password" : "Password@124",
+    "admin" : {
+        "username": "admin@winit.com",
+        "password" : "password"
+    }
+   
 }

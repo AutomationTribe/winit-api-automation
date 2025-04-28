@@ -103,7 +103,6 @@ Cypress.Commands.add("login",function(username,password){
     cy.request(options).then((res)=>{
         return cy.wrap(res);
     })
-
    
 })
 
@@ -200,6 +199,28 @@ Cypress.Commands.add("confirmPasswordOTP",function(userId,otp){
 
         return cy.wrap(res);
     })
-   
-    
+     
+})
+
+Cypress.Commands.add("adminLogin",function(username,password){
+
+    options = {
+        url : url+`/api/v1/admin/auth/login`,
+        method: "POST",
+        headers:{
+            "Content-type" : "application/json",
+            "Accept" : "application/json"
+        },
+        body:{
+            "email" : username,
+            "password" : password,
+            "remember_me" : true
+        },
+        failOnStatusCode:false
+    };
+
+    cy.request(options).then((res)=>{
+        return cy.wrap(res);
+    })
+  
 })
