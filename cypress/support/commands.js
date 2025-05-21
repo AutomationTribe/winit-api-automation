@@ -29,6 +29,7 @@ import { faker } from "@faker-js/faker";
 let options,otp,data;
 let url = Cypress.config("baseUrl");
 
+
 Cypress.Commands.add("generatePhoneNumber",function(){
 
     const prefixes = ['080', '081', '070', '090', '091'];
@@ -202,6 +203,29 @@ Cypress.Commands.add("confirmPasswordOTP",function(userId,otp){
      
 })
 
+/**Admin commands */
+Cypress.Commands.add("InitiateForgotPassword",(emailAddress)=>{
+
+    options = {
+        url : url+`/api/v1/admin/auth/send-code`,
+        method : "POST",
+        header : {
+            "Accept" : "application/json",
+            "Content-type" : "application/json"
+        },
+        body : {
+            email:emailAddress
+        },
+        failOnStatusCode: false
+
+    };
+
+    cy.request(options).then((res)=>{
+       return cy.wrap(res);
+    })
+
+
+})
 Cypress.Commands.add("adminLogin",function(username,password){
 
     options = {
